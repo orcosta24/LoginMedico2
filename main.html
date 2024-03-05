@@ -1,0 +1,691 @@
+<!doctype html>
+
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>Metagenetics</title>
+  <link rel="stylesheet" href="/css/uri.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="shortcut icon" href="assets/fav_icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJxHZ/6XB1wL5nB0Sd15ceHTw3aDeE2WOlvNJ0Hb9agTibofziV10Bi92s08Ag1" crossorigin="anonymous">
+  <meta name="keywords" content="css3, html5, js, background video, fullscreen video">
+  <meta name="description" content="Super easy to implement HTML5 fullscreen background video library in JavaScript.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 130%;
+      overflow: visible ;
+    }
+
+    #container {
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    #background_video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+
+    #video_cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('video_cover.jpeg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #video_controls {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+
+    #play img {
+      width: 100px;
+    }
+
+    #pause img {
+      width: 90px;
+    }
+
+    #pause {
+      display: none;
+    }
+
+   @media (min-width: 768px) {
+      #video_controls {
+        display: none;
+      }
+    }
+
+    body {
+      text-align: center;
+      font-family: 'proxima-nova', Helvetica;
+    }
+
+    #container {
+      height: 100%;
+    }
+
+    #overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    #main_content {
+      z-index: 2;
+      position: relative;
+      display: inline-block;
+      top: 50%;
+      padding: 7%;
+      transform: translateY(-50%);
+    }
+
+    #main_content h1 {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-family: 'proxima-nova-condensed', Helvetica;
+      color: #fff;
+      font-size: 35px;
+    }
+
+    #main_content .sub_head {
+      margin-top: 11%;
+      color: rgb(255, 255, 255);
+      font-size: 24px;
+    }
+
+    #main_content .sub_head2 {
+      margin-top: 4%;
+      color: rgba(255, 255, 255, 0.774);
+      font-size: 16px;
+    }
+
+    #main_content .info {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    #links {
+      margin-top: 50px;
+    }
+
+    #links a {
+      border: 2px solid rgba(255, 255, 255, 0.20);
+      border-radius: 61px;
+      font-size: 12px;
+      color: #FFFFFF;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: 10px 25px;
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    #footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    #footer a {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      margin: 10px;
+      font-size: 12px;
+    }
+
+    #footer a:first-child {
+      float: left;
+    }
+
+    #footer a:last-child {
+      float: right;
+    }
+
+    header{
+      padding-top: 5%;
+    }
+
+    .div-general{
+      margin-left: 3%;
+      margin-bottom: 10%;
+    }
+
+    .div1{
+      margin-top: 1%;
+      padding-bottom: 1%;
+      background: linear-gradient(0deg, rgba(34,172,195,1) 0%, rgb(15, 108, 136) 100%);
+      height: 82em;
+      border-radius: 30px;
+      margin-right: 2em;
+      margin-left: 1.5em;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
+
+    .img-1{
+      height: 80%;
+      width: 80%;
+    }
+
+    .img-2{
+      height: 80%;
+      width: 80%;
+    }
+
+    .div1-1{
+      background-image: url(assets/elinsano.jpg);
+      height: 18%;
+      width: 64%;
+      margin: 8% 18%;
+      border-radius: 25px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
+
+    .div1-2{
+      background-color: #fff;
+      height: 10%;
+      width: 80%;
+      margin: 10% 10%;
+      border-radius: 10px;
+      color: black;
+      text-align: left;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
+
+    .div1-2 p{
+      margin-bottom: 9%;
+    }
+
+    .div1-3{
+      background-color: #fff;
+      height: 7%;
+      width: 80%;
+      margin: 10% 10%;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
+
+    .div1-4{
+      background-color: #fff;
+      height: 48.5%;
+      width: 80%;
+      margin: 5% 10%;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
+
+    .div1-4 div p{
+      color: black;
+      font-size: small;
+    }
+
+    .div1-4 div {
+      padding-top: 5%;
+      cursor: pointer;
+    }
+
+    .espaciador{
+      background-color: black;
+      height: 1px;
+      width: 80%;
+      margin: 5% 10%;
+      border-radius: 25px;
+      cursor: none;
+    }
+
+    .div2{
+      margin-top: 1%;
+      padding-bottom: 1%;
+      background: linear-gradient(0deg, rgba(34,172,195,1) 0%, rgba(15, 108, 136) 100%);
+      margin-right: 2em;
+      height: 20em;
+      border-radius: 30px;
+    }
+
+    .barra-iconos{
+      margin-top: 3%;
+    }
+
+    .barra-iconos b{
+      font-size: 20px;
+      color: rgb(22, 88, 143);
+    }
+
+    .text-1{
+      text-align: start;
+      margin: 3% 4.5%;
+      font-size: 22px;
+      padding-bottom: 2%;
+    }
+
+    .barra-inferior{
+      background-color: #fff;
+      color: black;
+      width: 105.5%;
+      padding-top: 5%;
+      margin-left: -2.8%;
+      border-radius: 25px;
+      height: 100%;
+    }
+
+    .barra-inferior p{
+      font-size: 20px;
+    }
+
+    .barra-inferior p b{
+      font-size: 22px;
+    }
+
+    .barra-inferior-2{
+      background-color: #fff;
+      color: black;
+      width: 105.5%;
+      padding-top: 5%;
+      margin-left: -2.6%;
+      border-radius: 25px;
+      height: 185%;
+    }
+
+    .quadro-1{
+      margin-left: 7%;
+      width: 40%;
+      height: 8em;
+      background: linear-gradient(0deg, rgba(34,172,195,1) 0%, rgba(15, 108, 136) 100%);
+      border-radius: 25px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
+
+    .quadro-1 p{
+      color: white;
+      font-weight: bold;
+      margin-top: 15%;
+    }
+
+    .quadro-1 p b{
+      font-size: 55px;
+      font-weight: 700;
+    }
+
+    .quadro-2{
+      margin-left: 7%;
+      width: 40%;
+      height: 8em;
+      background: linear-gradient(0deg, rgba(34,172,195,1) 0%, rgba(15, 108, 136) 100%);
+      border-radius: 25px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    }
+
+    .quadro-2 p{
+      color: white;
+      font-weight: bold;
+      margin-top: 15%;
+    }
+
+    .quadro-2 p b{
+      font-size: 55px;
+      font-weight: 700;
+    }
+
+    .final{
+      text-align: end;
+      list-style: none;
+      margin: 10% 5%;
+      align-content: end;
+    }
+
+    .final li{
+      margin-bottom: 5%;
+    }
+
+    .text-2{
+      text-align: start;
+      margin: 3% 4.5%;
+      font-size: 22px;
+      padding-bottom: 9%;
+    }
+
+    input{
+      background-color:#fff;
+      height: 40px;
+      border-radius: 10px;
+      color: black;
+      padding: 2%;
+    }
+
+    select{
+      width: 100%; 
+      background-color:#fff;
+      height: 40px;
+      border-radius: 10px;
+      color: black;
+      padding: 2%;
+    }
+
+    .quadro-text{
+      margin: 7% 4%;
+      width: 25%;
+      height: 10em;
+      font-size: 20px;
+      text-align: start;
+    }
+
+ /* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(75, 73, 74);
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 20px;
+  left: 0.3em;
+  bottom: 0.3em;
+  background-color: black;
+  box-shadow: inset 8px -4px 0 0 white;
+  transition: 0.4s;
+}
+
+.switch input:checked + .slider {
+  background-color: #2196f3;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.5em);
+  background-color: yellow;
+  box-shadow: none;
+}
+
+    
+
+  </style>
+ 
+</head>
+
+<body>
+  
+  <div class="container" style="padding: 2% 0%;">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <img src="assets/logo-white.png" id="logo" alt="Error" class="img-10" style="width: 70%;">
+      </a>
+
+      <div style="margin-right: 2%; margin-top: 1.2%">
+        <label class="switch" id="switch">
+          <input type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <ul class="nav nav-pills" style="margin-top: 1%; margin-right: 1.5%;">
+        <li class="nav-item"><a href="#" class="nav-link px-2" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2">About</a></li>
+      </ul>
+
+    </header>
+  </div>
+
+  <div class="container" style="margin-top: -2%">
+    <div class="row">
+
+      <div class="col-2 div1">
+
+        <div style="margin-top: 10%;">
+          <img src="assets/logo-white.png" alt="Error" class="img-1">
+        </div>
+  
+        <div class="div1-1">
+        </div>
+
+        <div class="div1-2">
+          <div style="padding: 8% 12%;">
+            <p style="font-weight: 700; letter-spacing: 0.03cm; margin-top: 8%">Sr. Alves da Silva</p>
+            <p style="font-size: 130%; margin-top: -4%; opacity: 60%;">40 años</p>
+          </div>
+        </div>
+
+        <div class="div1-3">
+          <img src="assets/Catalana_Occidente_Logo.svg.png" alt="MACACO" style="margin-top: 7%; margin-right: 2%">
+        </div>
+
+        <div class="div1-4">
+          
+          <div>
+            <i class="bi bi-calendar2-heart-fill fs-1 text-dark fw-bold"></i>
+            <p>Calendario de Citas</p>
+          </div>
+
+          <div class="espaciador"></div>
+
+          <div>
+            <i class="bi bi-file-earmark-text-fill fs-1 text-dark fw-bold"></i>
+            <p>Informe</p>
+          </div>
+
+          <div class="espaciador" ></div>
+
+          <div>
+            <i class="bi bi-hospital-fill fs-1 text-dark fw-bold"></i>
+            <p>Hospital</p>
+          </div>
+
+          <div class="espaciador" ></div>
+
+          <div>
+            <i class="bi bi-lungs-fill fs-1 text-dark fw-bold"></i>
+            <p>Pulmone?</p>
+          </div>
+
+          <div class="espaciador"></div>
+
+          <div>
+            <i class="bi bi-chat-square-text fs-1 text-dark fw-bold"></i>
+            <p>Calendario de Citas</p>
+          </div>
+
+        </div>
+
+      </div>
+  
+      <div class="col-3 div2">
+
+        <div>
+          <div class="barra-iconos">
+            <i class="bi bi-hdd-stack-fill fw-bold" style="font-size:xx-large;  margin-right: 67%"></i>
+            <i class="bi bi-envelope-fill fw-bold" style="font-size:xx-large; margin-right: 3%"></i>
+            <i class="bi bi-bell-fill fw-bold" style="font-size:xx-large"></i>
+          </div>
+  
+          <div>
+            <p class="text-1"><b>Lorem ipsum dolor sit amet consectetur adipisicing elit.</b></p>
+          </div>
+        </div>
+
+        <div class="barra-inferior-2" id="barra-2">
+          <div style="margin: 0% 5%;">
+            <div class="barra-iconos">
+              <i class="bi bi-droplet-fill fw-bold" style="font-size:xx-large; margin-right: 56%; margin-top: 7%; color: red"></i><b>Lorem ipsum</b>
+            </div>
+  
+            <div style="text-align: start;">
+              <p style="padding-top: 10%; margin-bottom: 1%;">Último dato:</p>
+              <p><b>Martes, 26 de Noviembre 2023</b> / hace 132 días</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="quadro-1">
+              <p><b>120</b> mm Hg</p>
+            </div>
+
+            <div class="quadro-2">
+              <p><b>80</b> mm Hg</p>
+            </div>
+          </div>
+
+          <ul class="final">
+            <li>
+              <input type="text">
+            </li>
+
+            <li>
+              <select name="" id="">
+                <option value="">Notas</option>
+                <option value="">Notas 1</option>
+                <option value="">Notas 2</option>
+                <option value="">Notas 3</option>
+              </select>
+            </li>
+
+            <li>
+              <input type="text">
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+  
+      <div class="col-3 div2">
+        
+        <div>
+          <div class="barra-iconos">
+            <i class="bi bi-hdd-stack-fill fw-bold" style="font-size:xx-large;  margin-right: 67%"></i>
+            <i class="bi bi-envelope-fill fw-bold" style="font-size:xx-large; margin-right: 3%"></i>
+            <i class="bi bi-bell-fill fw-bold" style="font-size:xx-large"></i>
+          </div>
+  
+          <div>
+            <p class="text-2"><b>consectetur adipisicing elit.</b></p>
+          </div>
+        </div>
+
+        <div class="barra-inferior" id="barra-1">
+          <div style="margin: 0% 5%;">
+            <div class="barra-iconos">
+              <i class="bi bi-heart-fill fw-bold" style="font-size:xx-large; margin-right: 56%; margin-top: 7%; color: red;"></i><b>Lorem ipsum</b>
+            </div>
+  
+            <div class="row">
+              <div class="quadro-text">
+                <b>Lorem ipsum dolor sit amet</b>
+              </div>
+  
+              <div class="quadro-text">
+                <b>Lorem ipsum dolor sit amet</b>
+              </div>
+  
+              <div class="quadro-text">
+                <b>Lorem ipsum dolor sit amet</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-3 div2">
+        
+        <div>
+          <div class="barra-iconos">
+            <i class="bi bi-hdd-stack-fill fw-bold" style="font-size:xx-large;  margin-right: 67%"></i>
+            <i class="bi bi-envelope-fill fw-bold" style="font-size:xx-large; margin-right: 3%"></i>
+            <i class="bi bi-bell-fill fw-bold" style="font-size:xx-large"></i>
+          </div>
+  
+          <div>
+            <p class="text-2"><b>consectetur adipisicing elit.</b></p>
+          </div>
+        </div>
+
+        <div class="barra-inferior" id="barra-3">
+          <div style="margin: 0% 5%;">
+            <div class="barra-iconos">
+              <i class="bi bi-heart-fill fw-bold" style="font-size:xx-large; margin-right: 56%; margin-top: 7%; color: red;"></i><b>Lorem ipsum</b>
+            </div>
+  
+            <div class="row">
+              <div class="quadro-text">
+                <b>Lorem ipsum dolor sit amet</b>
+              </div>
+  
+              <div class="quadro-text">
+                <b>Lorem ipsum dolor sit amet</b>
+              </div>
+  
+              <div class="quadro-text">
+                <b>Lorem ipsum dolor sit amet</b>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+  
+    </div>
+  </div>
+  
+  <script src="dar-light.js"></script>
+</body>
+
+</html>
